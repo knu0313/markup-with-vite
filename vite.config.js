@@ -7,7 +7,7 @@ export default {
       context: {
         title: 'Hello, world!',
       },
-      partialDirectory: resolve(__dirname, 'src/_partials'),
+      partialDirectory: resolve(__dirname, 'src/_partials'), //partials 경로 설정
     }),
   ],
 };
