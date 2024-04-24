@@ -1,4 +1,3 @@
-import copy from 'rollup-plugin-copy';
 import handlebars from 'vite-plugin-handlebars';
 import autoprefixer from 'autoprefixer';
 import fs from 'fs';
@@ -8,11 +7,12 @@ import path, { resolve } from 'path';
 const getHtmlEntries = dir => {
   const htmlEntries = {};
   fs.readdirSync(dir).forEach(item => {
+    console.log(item, dir);
     const itemPath = path.join(dir, item);
 
     if(fs.statSync(itemPath).isFile()) {
-      if(path.extname(item) == '.html') {
-        htmlEntries[item] = resolve(__dirname, itemPath);
+      if(path.extname(item) == '.html' || path.extname(item) == '.js' ) {
+        htmlEntries[itemPath.replace('src/','')] = itemPath;
       }
     } else {
       Object.assign(htmlEntries, getHtmlEntries(itemPath));
@@ -21,24 +21,32 @@ const getHtmlEntries = dir => {
 
   return htmlEntries;
 };
+console.log(getHtmlEntries('src'));
 
 export default {
   root: 'src',
-  assetsDir: 'src',
+  publicDir: '../public',
   build: {
     outDir: '../dist/',
-    emptyOutDir: true,
+    assetsDir: '.',
+    cssMinify: false,
     rollupOptions: {
-      input: getHtmlEntries('src'),
+      input: { ...getHtmlEntries('src') },
+      output: {
+        assetFileNames: (entry) => {
+          console.log(entry);
+          return entry.name;
+        },
+        entryFileNames: (entry) => {
+          if(path.extname(entry.name) == '.html') {
+            return path.basename(entry.name);
+          }
+          return entry.name;
+        },
+      },
       plugins: [
         handlebars({
           partialDirectory: resolve(__dirname, 'src/_partials'), //partials 경로 설정
-        }),
-        copy({
-          targets: [
-            { src: 'src/img', dest: 'dist/' } // 에셋 파일을 복사할 소스 및 대상 경로
-          ],
-          verbose: true // 복사 작업을 로그에 표시할지 여부
         }),
       ]
     }
