@@ -3,8 +3,8 @@ import autoprefixer from 'autoprefixer';
 import fs from 'fs';
 import path, { resolve } from 'path';
 
-// 특정 폴더내에 html 파일 input entries 만들기
-const getHtmlEntries = dir => {
+// 특정 폴더내에 html 및 js 파일 input entries 만들기
+const getHtmlJsEntries = dir => {
   const htmlEntries = {};
   fs.readdirSync(dir).forEach(item => {
     const itemPath = path.join(dir, item);
@@ -14,13 +14,13 @@ const getHtmlEntries = dir => {
         htmlEntries[itemPath] = resolve(__dirname, itemPath);
       }
     } else {
-      Object.assign(htmlEntries, getHtmlEntries(itemPath));
+      Object.assign(htmlEntries, getHtmlJsEntries(itemPath));
     }
   });
 
   return htmlEntries;
 };
-console.log(getHtmlEntries('src'));
+console.log(getHtmlJsEntries('src'));
 
 export default {
   root: 'src',
@@ -31,7 +31,8 @@ export default {
     cssMinify: false,
     overwrite: true,
     rollupOptions: {
-      input: getHtmlEntries('src'),
+      minify: false,
+      input: getHtmlJsEntries('src'),
       output: {
         assetFileNames: (entry) => {
           if(path.extname(entry.name) == '.css') {

@@ -5,14 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "clean": "rm -rf dist",
-    "build:sass": "sass --no-source-map src/scss/:dist/css/",
+    "build": "npm run clean && npm run build:vite && npm run format",
+    "clean": "rimraf dist",
     "build:vite": "vite build",
-    "build": "npm run clean && npm run build:vite"
+    "format": "prettier --write \"dist/**/*.html\" --config .prettierrc"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
     "sass": "^1.75.0",
     "scss": "^0.2.4",
     "vite": "^5.2.0",
