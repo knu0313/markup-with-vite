@@ -43,7 +43,7 @@ export default {
         },
         entryFileNames: (entry) => {
           if(path.extname(entry.name) == '.js') {
-            return entry.name.replace('src/', '');
+            return path.relative("src", entry.name);
           }
           return entry.name;
         },
