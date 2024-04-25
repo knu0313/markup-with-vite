@@ -7,12 +7,11 @@ import path, { resolve } from 'path';
 const getHtmlEntries = dir => {
   const htmlEntries = {};
   fs.readdirSync(dir).forEach(item => {
-    console.log(item, dir);
     const itemPath = path.join(dir, item);
 
     if(fs.statSync(itemPath).isFile()) {
       if(path.extname(item) == '.html' || path.extname(item) == '.js' ) {
-        htmlEntries[itemPath.replace('src/','')] = itemPath;
+        htmlEntries[itemPath] = resolve(__dirname, itemPath);
       }
     } else {
       Object.assign(htmlEntries, getHtmlEntries(itemPath));
@@ -27,19 +26,23 @@ export default {
   root: 'src',
   publicDir: '../public',
   build: {
-    outDir: '../dist/',
+    outDir: '../dist',
     assetsDir: '.',
     cssMinify: false,
+    overwrite: true,
     rollupOptions: {
-      input: { ...getHtmlEntries('src') },
+      input: getHtmlEntries('src'),
       output: {
         assetFileNames: (entry) => {
-          console.log(entry);
+          if(path.extname(entry.name) == '.css') {
+            // CSS build결과물 경로
+            return 'css/' + entry.name;
+          }
           return entry.name;
         },
         entryFileNames: (entry) => {
-          if(path.extname(entry.name) == '.html') {
-            return path.basename(entry.name);
+          if(path.extname(entry.name) == '.js') {
+            return entry.name.replace('src/', '');
           }
           return entry.name;
         },
