@@ -24,7 +24,7 @@
 - vite.config.js   : vite 설정
 
 
-## 주의사항
+## src 작성
 - src 폴더내에 확장자가 .html, .js, .css 파일들이 자동적으로 input 엔트리에 포함
 - css
   - 빌드시 .css 파일 기준으로 파일이 생성
