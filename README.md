@@ -1,12 +1,14 @@
 # markup-with-vite
 
 
+
 ## npm scripts (npm run ***)
 - dev           : vite 로컬 개발 서버 실행
 - build:clean   : 기존 빌드 파일 삭제(./dist/ 삭제)
 - build:vite    : vite 빌드
 - build:format  : 빌드 파일 prettier 실행
 - build         : build:clean -> build:vite -> build:format 순차 실행
+
 
 ## 구조
 - dist    : 빌드 파일 (git 예외처리)
@@ -20,6 +22,7 @@
 - .prettierignore  : prettier 예외처리
 - .prettierrc      : prettier 설정
 - vite.config.js   : vite 설정
+
 
 ## 주의사항
 - src 폴더내에 확장자가 .html, .js, .css 파일들이 자동적으로 input 엔트리에 포함
