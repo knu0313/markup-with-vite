@@ -26,6 +26,8 @@
 
 ## src 작성
 - src 폴더내에 확장자가 .html, .js, .css 파일들이 자동적으로 input 엔트리에 포함
+- html
+- js
 - css
   - 빌드시 .css 파일 기준으로 파일이 생성
   - .css 파일 내에서는 SCSS가 동작 안하므로 현재 예제 처럼 .scss 파일을 .css파일에 import해서 .scss 파일내에서 작성
