@@ -3,7 +3,7 @@ import autoprefixer from 'autoprefixer';
 import fs from 'fs';
 import path, { resolve } from 'path';
 
-// 특정 폴더내에 html 및 js 파일 input entries 만들기
+// src 내 빌드 파일 엔트리(html, js, css) 만들기
 const getEntries = dir => {
   const htmlEntries = {};
   fs.readdirSync(dir).forEach(item => {
@@ -11,7 +11,6 @@ const getEntries = dir => {
 
     if(fs.statSync(itemPath).isFile()) {
       if(path.extname(item) == '.html' || path.extname(item) == '.js' || path.extname(item) == '.css') {
-      // if(path.extname(item) == '.html' || path.extname(item) == '.js') {
         htmlEntries[itemPath] = resolve(__dirname, itemPath);
       }
     } else {
