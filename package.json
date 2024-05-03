@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run clean && npm run build:vite",
+    "build": "npm run clean && npm run build:vite && npm run format",
     "clean": "rimraf dist",
     "build:vite": "vite build",
-    "format": "prettier --write ./dist"
+    "format": "prettier ./dist --write --ignore-path .prettierignore"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
