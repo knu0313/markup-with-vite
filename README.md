@@ -25,7 +25,7 @@
 
 
 ## src 작성
-- 폴더내에 확장자가 .html, .js, .css 파일들이 자동적으로 input 엔트리에 포함
+- src내에 확장자가 .html, .js, .css 파일들이 자동적으로 input 엔트리에 포함
 - html  : handlebars, html
   - css 및 js import 방법은 src/_partials/layout/head.hbs 참고 (일반 html이랑 동일)
 - js
