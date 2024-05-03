@@ -1,6 +1,10 @@
-@import "reset.scss";
-@import "common.scss";
+@import 'value.scss';
 
 body {
-  background-color: skyblue;
+  background-color: $base-color;
+}
+.test {
+  &_test {
+    background: red;
+  }
 }

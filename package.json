@@ -8,7 +8,7 @@
     "build": "npm run clean && npm run build:vite",
     "clean": "rimraf dist",
     "build:vite": "vite build",
-    "format": "prettier --write \"dist/**/*.html\""
+    "format": "prettier --write ./dist"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
