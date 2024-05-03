@@ -4,23 +4,24 @@ import fs from 'fs';
 import path, { resolve } from 'path';
 
 // 특정 폴더내에 html 및 js 파일 input entries 만들기
-const getHtmlJsEntries = dir => {
+const getEntries = dir => {
   const htmlEntries = {};
   fs.readdirSync(dir).forEach(item => {
     const itemPath = path.join(dir, item);
 
     if(fs.statSync(itemPath).isFile()) {
-      if(path.extname(item) == '.html' || path.extname(item) == '.js' ) {
+      if(path.extname(item) == '.html' || path.extname(item) == '.js' || path.extname(item) == '.css') {
+      // if(path.extname(item) == '.html' || path.extname(item) == '.js') {
         htmlEntries[itemPath] = resolve(__dirname, itemPath);
       }
     } else {
-      Object.assign(htmlEntries, getHtmlJsEntries(itemPath));
+      Object.assign(htmlEntries, getEntries(itemPath));
     }
   });
 
   return htmlEntries;
 };
-console.log(getHtmlJsEntries('src'));
+console.log(getEntries('src'));
 
 export default {
   root: 'src',
@@ -32,12 +33,11 @@ export default {
     overwrite: true,
     rollupOptions: {
       minify: false,
-      input: getHtmlJsEntries('src'),
+      input: getEntries('src'),
       output: {
         assetFileNames: (entry) => {
           if(path.extname(entry.name) == '.css') {
-            // CSS build결과물 경로
-            return 'css/' + entry.name;
+            return entry.name.replace('src/', '');
           }
           return entry.name;
         },
