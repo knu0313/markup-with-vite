@@ -5,9 +5,7 @@
 - dev           : vite 로컬 개발 서버 실행
 - build:clean   : 기존 빌드 파일 삭제(./dist/ 삭제)
 - build:vite    : vite 빌드
-- build:format  : dist 폴더내 파일들 prettier 실행
-  - .prettierrc : prettier config
-  - .prettierrc : dist 폴더내에서 prettier 실행 예외 파일
+- build:format  : 빌드 파일 prettier 실행
 - build         : build:clean -> build:vite -> build:format 순차 실행
 
 ## 구조
