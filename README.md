@@ -17,6 +17,7 @@
 - src     : 개발 소스
   - index.html     : 첫 화면, 인덱스 페이지
   - _partials      : handlebars partials 작성 하는 구역 (.hbs로 작성!!)
+  - _helpers       : handlebars helpers 작성
   - css, js, pages : 현재 구조로 사용하길 권장(변경가능)
 - .gitignore       : git 예외처리
 - .prettierignore  : prettier 예외처리
