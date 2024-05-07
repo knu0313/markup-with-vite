@@ -2,24 +2,33 @@ import handlebars from 'vite-plugin-handlebars';
 import autoprefixer from 'autoprefixer';
 import fs from 'fs';
 import path, { resolve } from 'path';
+import helpers from './src/_helpers/index';
 
 // src 내 빌드 파일 엔트리(html, js, css) 만들기
+
+const partialPath = 'src/_partials';  // partials 경로
+const helperPath = 'src/_helpers';  // helpers 경로 (엔트리 예외처리)
+
 const getEntries = dir => {
   const htmlEntries = {};
-  fs.readdirSync(dir).forEach(item => {
-    const itemPath = path.join(dir, item);
 
-    if(fs.statSync(itemPath).isFile()) {
-      if(path.extname(item) == '.html' || path.extname(item) == '.js' || path.extname(item) == '.css') {
-        htmlEntries[itemPath] = resolve(__dirname, itemPath);
+  if(dir.length === dir.replace(partialPath, '').length && dir.length === dir.replace(helperPath, '').length ) {
+    fs.readdirSync(dir).forEach(item => {
+      const itemPath = path.join(dir, item);
+  
+      if(fs.statSync(itemPath).isFile()) {
+        if(path.extname(item) == '.html' || path.extname(item) == '.js' || path.extname(item) == '.css') {
+          htmlEntries[itemPath] = resolve(__dirname, itemPath);
+        }
+      } else {
+        Object.assign(htmlEntries, getEntries(itemPath));
       }
-    } else {
-      Object.assign(htmlEntries, getEntries(itemPath));
-    }
-  });
+    });
+  }
 
   return htmlEntries;
 };
+
 console.log(getEntries('src'));
 
 export default {
@@ -49,7 +58,8 @@ export default {
       },
       plugins: [
         handlebars({
-          partialDirectory: resolve(__dirname, 'src/_partials'), //partials 경로 설정
+          partialDirectory: resolve(__dirname, partialPath), //partials 경로 설정
+          helpers // helpers 등록
         }),
       ]
     }
