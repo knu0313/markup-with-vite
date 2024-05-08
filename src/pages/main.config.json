@@ -1,0 +1,17 @@
+{
+  "title": "main",
+  "people": [
+    {
+      "name": "name1",
+      "job": "job1"
+    },
+    {
+      "name": "name2",
+      "job": "job2"
+    },
+    {
+      "name": "name3",
+      "job": "job3"
+    }
+  ]
+}

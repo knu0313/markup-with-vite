@@ -29,8 +29,26 @@ const getEntries = dir => {
   return htmlEntries;
 };
 
-console.log(getEntries('src'));
+const getContexts = dir => {
+  const contexts = {};
 
+  fs.readdirSync(dir).forEach(item => {
+    const itemPath = path.join(dir, item);
+
+    if(fs.statSync(itemPath).isFile()) {
+      if(path.extname(item) == '.json') {
+        contexts[itemPath.replace('src','').replace('config.json', 'html')] = JSON.parse(fs.readFileSync(itemPath));
+      }
+    } else {
+      Object.assign(contexts, getContexts(itemPath));
+    }
+  });
+
+  return contexts;
+}
+
+const pageData = getContexts('src');
+console.log(getEntries('src'));
 export default {
   root: 'src',
   publicDir: '../public',
@@ -56,12 +74,17 @@ export default {
           return entry.name;
         },
       },
-      plugins: [
-        handlebars({
-          partialDirectory: resolve(__dirname, partialPath), //partials 경로 설정
-          helpers // helpers 등록
-        }),
-      ]
+      // plugins: [
+      //   handlebars({
+      //     partialDirectory: resolve(__dirname, 'src/_partials'), //partials 경로 설정
+      //     context(pagePath) {
+      //       console.log('test1---');
+      //       console.log(pageData, pagePath);
+      //       return pageData[pagePath];
+      //     },
+      //     helpers // helpers 등록
+      //   }),
+      // ]
     }
   },
   css: {
@@ -74,6 +97,13 @@ export default {
   plugins: [
     handlebars({
       partialDirectory: resolve(__dirname, 'src/_partials'), //partials 경로 설정
+      context(pagePath) {
+        console.log('test2---');
+        console.log(pageData);
+        console.log(pagePath);
+        return pageData[pagePath];
+      },
+      helpers // helpers 등록
     }),
   ],
 };

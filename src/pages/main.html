@@ -1,8 +1,15 @@
 {{#> layout/default }}
-main.html
+main.html!!
+<h1>{{title}}</h1>
 <img src="/img/logo.svg" alt="">
 {{#repeat 5}}
 <img src="/img/abc/logo.svg" alt="">
 {{/repeat}}
+{{#each people}}
+<div>
+    {{name}}
+    {{job}}
+</div>
+{{/each}}
 {{> input/text}}
 {{/ layout/default }}
