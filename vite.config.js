@@ -73,18 +73,7 @@ export default {
           }
           return entry.name;
         },
-      },
-      // plugins: [
-      //   handlebars({
-      //     partialDirectory: resolve(__dirname, 'src/_partials'), //partials 경로 설정
-      //     context(pagePath) {
-      //       console.log('test1---');
-      //       console.log(pageData, pagePath);
-      //       return pageData[pagePath];
-      //     },
-      //     helpers // helpers 등록
-      //   }),
-      // ]
+      }
     }
   },
   css: {
